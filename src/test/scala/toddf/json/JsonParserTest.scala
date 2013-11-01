@@ -22,11 +22,11 @@ values ::= value {"," value}.
 
   class Json extends JavaTokenParsers {
     def value: Parser[Any] = obj | floatingPointNumber | stringLiteral | "null" | "true" | "false"
-    def obj: Parser[Any] = "{"~members~"}"
+    def obj: Parser[Any] = "{" ~ (member | "") ~ "}"
     def arr: Parser[Any] = "TODO: create lexical expression for parsing"
-    def member: Parser[Any] = stringLiteral~":"~value
+    def member: Parser[Any] = stringLiteral ~ ":" ~ value
     def values: Parser[Any] = "TODO: create lexical expression for parsing"
-    def members: Parser[Any] = repsep(member, ",")
+    def members: Parser[Any] = "TODO: create lexical expression for parsing"
   }
 
   object ParseJson extends Json {
@@ -39,7 +39,7 @@ values ::= value {"," value}.
   import ParseJson._
 
   describe("single element parsing") {
-    
+
     it("parses empty Json") {
       val json = parseJson("{}")
 
@@ -49,57 +49,57 @@ values ::= value {"," value}.
 
     it("parses a numeric value") {
       val json = parseJson("""{"zip" : 48092}""")
-      
+
       json.successful should be(true)
-      println(json.get.toString)  // prints "(({~List((("zip"~:)~48092)))~})", but for now we are not going to worry about output
+      println(json.get.toString) // prints "(({~List((("zip"~:)~48092)))~})", but for now we are not going to worry about output
     }
 
     // TODO:  get the rest of the tests to pass per the JSON grammer for value.
-    
+
     it("parses a string value") {
       val json = parseJson("""{"name" : "todd"}""")
-      
+
       json.successful should be(true)
       println(json.get.toString)
     }
-    
+
     it("parses a null value") {
       val json = parseJson("""{"name" : null}""")
-      
+
       json.successful should be(true)
       println(json.get.toString)
     }
-    
+
     it("parses a boolean true value") {
       val json = parseJson("""{"cool" : true}""")
-      
+
       json.successful should be(true)
       println(json.get.toString)
     }
-    
+
     it("parses a boolean false value") {
       val json = parseJson("""{"cool" : false}""")
-      
+
       json.successful should be(true)
       println(json.get.toString)
     }
   }
-  
+
   // Note:  This is a free test, since the parser handles whitespace automagically
   describe("free whitespace tests") {
     it("doesn't require spaces around the colon") {
       val json = parseJson("""{"name":"todd"}""")
-      
-      json.successful should be(true)      
+
+      json.successful should be(true)
     }
 
     it("allows line breaks and tabs") {
       val json = parseJson("""{"name":
     		  						"todd"}""")
-      
-      json.successful should be(true)      
+
+      json.successful should be(true)
     }
-    
+
   }
 
 }
