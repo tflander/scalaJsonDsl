@@ -1,6 +1,15 @@
 Scala Json Dsl 
 ==============
 
+step7
+-----
+Done -- refactored to move the parser from the test code to production source dir
+        created new test for refining the parser output
+        
+Goal -- Review refactoring and new test class JsonParserResultTest
+
+Todo -- Review JsonParserResultTest and fix broken test.
+        
 step6
 -----
 Done -- implemented parsing for arrays & put it all together with a bigger example
