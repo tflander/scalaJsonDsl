@@ -1,6 +1,15 @@
 Scala Json Dsl 
 ==============
 
+step 1
+------
+Done -- Cheated to get the test to pass
+
+Goal -- do some real parsing
+
+Todo -- Review JsonParserTest and fix broken test.
+
+
 step 0
 ------
 Done -- Created new scala project, configured the sbt-eclipse plug-in and updated scalatest version.

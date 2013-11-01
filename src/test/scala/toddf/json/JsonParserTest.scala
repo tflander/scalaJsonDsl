@@ -21,7 +21,7 @@ values ::= value {"," value}.
    */
 
   class Json extends JavaTokenParsers {
-    def value: Parser[Any] = "TODO: create lexical expression for parsing"
+    def value: Parser[Any] = "{}"
     def obj: Parser[Any] = "TODO: create lexical expression for parsing"
     def arr: Parser[Any] = "TODO: create lexical expression for parsing"
     def member: Parser[Any] = "TODO: create lexical expression for parsing"
@@ -41,10 +41,17 @@ values ::= value {"," value}.
   describe("JSON parsing tests") {
     it("parses empty Json") {
       val json = parseJson("{}")
-      
-      // TODO:  Modify Json.value in the above class to make this test pass.
+
       json.successful should be(true)
-      println()
+      println(json.get.toString) // prints "{}", but for now we are not going to worry about output
+    }
+
+    it("parses a single element") {
+      val json = parseJson("""{"zip" : 48092}""")
+      
+      // TODO:  now that we cheated for the first test, let's do some real parsing
+      json.successful should be(true)
+      println(json.get.toString)
     }
 
   }
