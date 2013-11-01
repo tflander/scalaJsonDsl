@@ -1,6 +1,14 @@
 Scala Json Dsl 
 ==============
 
+step6
+-----
+Done -- implemented parsing for arrays & put it all together with a bigger example
+
+Goal -- Refactor for next step
+
+Todo -- check out step7 (the refactored code base)
+
 step5
 -----
 Done -- implemented parsing for objects

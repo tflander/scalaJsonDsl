@@ -21,11 +21,11 @@ values ::= value {"," value}.
    */
 
   class Json extends JavaTokenParsers {
-    def value: Parser[Any] = obj | floatingPointNumber | stringLiteral | "null" | "true" | "false"
+    def value: Parser[Any] = obj | arr | floatingPointNumber | stringLiteral | "null" | "true" | "false"
     def obj: Parser[Any] = "{" ~ members ~ "}"
-    def arr: Parser[Any] = "TODO: create lexical expression for parsing"
+    def arr: Parser[Any] = "[" ~ values ~ "]"
     def member: Parser[Any] = stringLiteral ~ ":" ~ value
-    def values: Parser[Any] = "TODO: create lexical expression for parsing"
+    def values: Parser[Any] = repsep(value, ",")
     def members: Parser[Any] = repsep(member, ",")
   }
 
@@ -129,6 +129,23 @@ values ::= value {"," value}.
     	json.successful should be(true)
     }
     
+  }
+  
+  describe("Putting it all together") {
+     it("parses all combinations of a Json object") {
+       val json = parseJson("""
+            {"address" : {"street" : "123 Main Street", 
+    					  "city"   : "Springfield",
+    					  "state"  : "California",
+    					  "zip"    : "90210",
+    		   			  "phone numbers" : [
+    		   								 "555-1212",
+    		   								 "655-1268"
+    		   			  					]
+    					}
+    		}
+           """)
+     }
   }
 
 }
