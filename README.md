@@ -1,6 +1,14 @@
 Scala Json Dsl 
 ==============
 
+step5
+-----
+Done -- implemented parsing for objects
+
+Goal -- parse arrays
+
+Todo -- Review JsonParserTest and fix broken test.
+
 step4
 -----
 Done -- added free tests
