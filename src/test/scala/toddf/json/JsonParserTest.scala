@@ -85,7 +85,6 @@ values ::= value {"," value}.
     }
   }
 
-  // Note:  This is a free test, since the parser handles whitespace automagically
   describe("free whitespace tests") {
     it("doesn't require spaces around the colon") {
       val json = parseJson("""{"name":"todd"}""")
@@ -100,6 +99,19 @@ values ::= value {"," value}.
       json.successful should be(true)
     }
 
+  }
+
+  describe("Json Objects") {
+    it("parses a standard key-value pair object") {
+    	val json = parseJson("""
+    	    {"address" : {"street" : "123 Main Street", 
+    					  "city"   : "Springfield",
+    					  "state"  : "California",
+    					  "zip"    : "90210" 
+    					} 
+    	""")
+    	json.successful should be(true)
+    }
   }
 
 }
