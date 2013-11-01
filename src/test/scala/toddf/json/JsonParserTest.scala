@@ -22,11 +22,11 @@ values ::= value {"," value}.
 
   class Json extends JavaTokenParsers {
     def value: Parser[Any] = obj | floatingPointNumber
-    def obj: Parser[Any] = "{"~members~"}"
+    def obj: Parser[Any] = "{" ~ (member | "") ~ "}"
     def arr: Parser[Any] = "TODO: create lexical expression for parsing"
     def member: Parser[Any] = stringLiteral~":"~value
     def values: Parser[Any] = "TODO: create lexical expression for parsing"
-    def members: Parser[Any] = repsep(member, ",")
+    def members: Parser[Any] = "TODO: create lexical expression for parsing"
   }
 
   object ParseJson extends Json {
