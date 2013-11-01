@@ -1,6 +1,14 @@
 Scala Json Dsl 
 ==============
 
+step3
+-----
+Done -- finished parsing value
+
+Goal -- understand whitespace is handled for you
+
+Todo -- Review new tests that ran green with no code modifications
+
 step2
 -----
 Done -- did some real parsing

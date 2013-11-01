@@ -21,7 +21,7 @@ values ::= value {"," value}.
    */
 
   class Json extends JavaTokenParsers {
-    def value: Parser[Any] = obj | floatingPointNumber
+    def value: Parser[Any] = obj | floatingPointNumber | stringLiteral | "null" | "true" | "false"
     def obj: Parser[Any] = "{"~members~"}"
     def arr: Parser[Any] = "TODO: create lexical expression for parsing"
     def member: Parser[Any] = stringLiteral~":"~value
@@ -83,6 +83,23 @@ values ::= value {"," value}.
       json.successful should be(true)
       println(json.get.toString)
     }
+  }
+  
+  // Note:  This is a free test, since the parser handles whitespace automagically
+  describe("free whitespace tests") {
+    it("doesn't require spaces around the colon") {
+      val json = parseJson("""{"name":"todd"}""")
+      
+      json.successful should be(true)      
+    }
+
+    it("allows line breaks and tabs") {
+      val json = parseJson("""{"name":
+    		  						"todd"}""")
+      
+      json.successful should be(true)      
+    }
+    
   }
 
 }
