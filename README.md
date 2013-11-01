@@ -1,6 +1,14 @@
 Scala Json Dsl 
 ==============
 
+step2
+-----
+Done -- did some real parsing
+
+Goal -- complete the parsing rules for value according to the JSON grammer
+
+Todo -- Fix broken tests in JsonParserTest.
+
 step 1
 ------
 Done -- Cheated to get the test to pass

@@ -21,12 +21,12 @@ values ::= value {"," value}.
    */
 
   class Json extends JavaTokenParsers {
-    def value: Parser[Any] = "{}"
-    def obj: Parser[Any] = "TODO: create lexical expression for parsing"
+    def value: Parser[Any] = obj | floatingPointNumber
+    def obj: Parser[Any] = "{"~members~"}"
     def arr: Parser[Any] = "TODO: create lexical expression for parsing"
-    def member: Parser[Any] = "TODO: create lexical expression for parsing"
+    def member: Parser[Any] = stringLiteral~":"~value
     def values: Parser[Any] = "TODO: create lexical expression for parsing"
-    def members: Parser[Any] = "TODO: create lexical expression for parsing"
+    def members: Parser[Any] = repsep(member, ",")
   }
 
   object ParseJson extends Json {
@@ -38,22 +38,51 @@ values ::= value {"," value}.
 
   import ParseJson._
 
-  describe("JSON parsing tests") {
+  describe("single element parsing") {
+    
     it("parses empty Json") {
       val json = parseJson("{}")
 
       json.successful should be(true)
-      println(json.get.toString) // prints "{}", but for now we are not going to worry about output
+      println(json.get.toString) // prints "(({~List())~})", but for now we are not going to worry about output
     }
 
-    it("parses a single element") {
+    it("parses a numeric value") {
       val json = parseJson("""{"zip" : 48092}""")
       
-      // TODO:  now that we cheated for the first test, let's do some real parsing
+      json.successful should be(true)
+      println(json.get.toString)  // prints "(({~List((("zip"~:)~48092)))~})", but for now we are not going to worry about output
+    }
+
+    // TODO:  get the rest of the tests to pass per the JSON grammer for value.
+    
+    it("parses a string value") {
+      val json = parseJson("""{"name" : "todd"}""")
+      
       json.successful should be(true)
       println(json.get.toString)
     }
-
+    
+    it("parses a null value") {
+      val json = parseJson("""{"name" : null}""")
+      
+      json.successful should be(true)
+      println(json.get.toString)
+    }
+    
+    it("parses a boolean true value") {
+      val json = parseJson("""{"cool" : true}""")
+      
+      json.successful should be(true)
+      println(json.get.toString)
+    }
+    
+    it("parses a boolean false value") {
+      val json = parseJson("""{"cool" : false}""")
+      
+      json.successful should be(true)
+      println(json.get.toString)
+    }
   }
 
 }
