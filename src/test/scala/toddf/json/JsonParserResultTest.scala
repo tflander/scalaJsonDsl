@@ -22,14 +22,6 @@ class JsonParserResultTest extends FunSpec with ShouldMatchers {
     }
 
     it("parses a string value") {
-      
- /*
-JsonMember = (("name"~:)~"todd") (scala.util.parsing.combinator.Parsers$$tilde)
-JsonMembers = List(JsonMember((("name"~:)~"todd"))) (scala.collection.immutable.$colon$colon)
-JsonObject = JsonMembers(List(JsonMember((("name"~:)~"todd")))) (toddf.json.JsonMembers)
-JsonObject(JsonMembers(List(JsonMember((("name"~:)~"todd")))))
- */
-      
       val json = parseJson("""{"name" : "todd"}""")
 
       json.successful should be(true)
