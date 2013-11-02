@@ -9,7 +9,7 @@ published by Artima
 
 Here is the grammer for expressing JSON:
 
-value ::= obj | arr | stringLiteral | ßoatingPointNumber | "null" | "true" | "false".
+value ::= obj | arr | stringLiteral | floatingPointNumber | "null" | "true" | "false".
 member ::= stringLiteral ":" value.
 arr ::= "[" [values] "]".
 obj ::= "{" [members] "}".
