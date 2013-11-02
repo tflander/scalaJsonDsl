@@ -27,7 +27,7 @@ case class JsonBoolean(name: String, value: Boolean) extends JsonElement
 case class JsonList(name: String, value: List[Any]) extends JsonElement
 
 class JsonParser extends JavaTokenParsers {
-  def value: Parser[Any] = obj | arr | floatingPointNumber | stringLiteral | "null" | "true" | "false"
+  def value: Parser[Any] = obj | arr | floatingPointNumber ^^ (_.toLong) | stringLiteral ^^ (x => stripQuotes(x)) | "null" ^^ (x => null) | "true" ^^ (x => true) | "false" ^^ (x=> false)
   def obj: Parser[List[JsonElement]] = "{" ~> members <~ "}"
   def arr: Parser[List[Any]] = "[" ~> values <~ "]"
   def member: Parser[JsonElement] = stringLiteral ~ ":" ~ value ^^ { case name ~ ":" ~ value => buildJsonElement(name, value) }
@@ -36,30 +36,20 @@ class JsonParser extends JavaTokenParsers {
 
   def buildJsonElement(name: String, value: Any): JsonElement = {
     require(name.startsWith("\"") && name.endsWith("\""), "Json requires element names to be wrapped in quotes.  Found: " + name)
-    val realName = name.substring(1, name.length - 1)
+    val realName = stripQuotes(name)
     value match {
-      
-      case x: String => {
-        buildValue(x) match {
-          case true => return JsonBoolean(realName, true)
-          case false => return JsonBoolean(realName, false)
-          case v: Long => return JsonLong(realName, v)
-          case s: String => return JsonString(realName, s)
-          case null => return JsonNull(realName)
-        }
-      }
+      case true => return JsonBoolean(realName, true)
+      case false => return JsonBoolean(realName, false)
+      case v: Long => return JsonLong(realName, v)
+      case s: String => return JsonString(realName, s)
+      case null => return JsonNull(realName)
       case x: List[Any] => return JsonList(realName, x)
     }
   }
   
-  def buildValue(raw: String): Any = {
-    return raw match {
-        case "true" =>  return true
-        case "false" =>  return false
-        case "null" => return null
-        case x: String if x.startsWith("\"") && x.endsWith("\"") => return x.substring(1, x.length - 1)
-        case x: String => return x.toLong
-    }
+  def stripQuotes(raw: String): String = {
+    require(raw.startsWith("\"") && raw.endsWith("\""), "Expected quoted string.  Found: " + raw)
+    return raw.substring(1, raw.length-1)
   }
 }
 
