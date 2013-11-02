@@ -49,4 +49,54 @@ class JsonParserResultTest extends FunSpec with ShouldMatchers {
       println(json.get.toString)
     }
   }
+  
+  describe("Json Objects and Arrays") {
+    
+    it("parses a standard key-value pair object") {
+    	val json = parseJson("""
+    	    {"address" : {"street" : "123 Main Street", 
+    					  "city"   : "Springfield",
+    					  "state"  : "California",
+    					  "zip"    : "90210" 
+    					}
+    		}
+    	""")
+    	
+    	println(json)
+    	json.successful should be(true)
+    }
+    
+    it("parses an array") {
+    	val json = parseJson("""
+    	    {"phone numbers" : [ 
+    					  "555-1212",
+    					  "655-8629"
+    					]
+    		}
+    	""")
+    	
+    	println(json)
+    	json.successful should be(true)
+    }
+    
+  }
+  
+  describe("Putting it all together") {
+     it("parses all combinations of a Json object") {
+       val json = parseJson("""
+            {"address" : {"street" : "123 Main Street", 
+    					  "city"   : "Springfield",
+    					  "state"  : "California",
+    					  "zip"    : "90210",
+    		   			  "phone numbers" : [
+    		   								 "555-1212",
+    		   								 "655-1268"
+    		   			  					]
+    					}
+    		}
+           """)
+    	println(json)
+    	json.successful should be(true)
+     }
+  }  
 }
