@@ -19,9 +19,7 @@ values ::= value {"," value}.
 
    */
 
-class JsonThing()
-
-case class JsonMember(name: String, value: Any) extends JsonThing
+case class JsonMember(name: String, value: Any)
 
 class JsonParser extends JavaTokenParsers {
   def value: Parser[Any] = obj | arr | floatingPointNumber | stringLiteral | "null" | "true" | "false"
