@@ -19,15 +19,15 @@ values ::= value {"," value}.
 
    */
 
-case class JsonMember(name: String, value: Any)
+case class JsonElement(name: String, value: Any)
 
 class JsonParser extends JavaTokenParsers {
   def value: Parser[Any] = obj | arr | floatingPointNumber | stringLiteral | "null" | "true" | "false"
-  def obj: Parser[List[JsonMember]] = "{" ~> members <~ "}"  
+  def obj: Parser[List[JsonElement]] = "{" ~> members <~ "}"  
   def arr: Parser[List[Any]] = "[" ~> values <~ "]" 
-  def member: Parser[JsonMember] = stringLiteral ~ ":" ~ value ^^ { case name ~ ":" ~ value => JsonMember(name, value) }
+  def member: Parser[JsonElement] = stringLiteral ~ ":" ~ value ^^ { case name ~ ":" ~ value => JsonElement(name, value) }
   def values: Parser[List[Any]] = repsep(value, ",")
-  def members: Parser[List[JsonMember]] = repsep(member, ",")
+  def members: Parser[List[JsonElement]] = repsep(member, ",")
 }
 
 object ParseJson extends JsonParser {

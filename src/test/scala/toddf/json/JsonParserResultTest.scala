@@ -10,15 +10,20 @@ class JsonParserResultTest extends FunSpec with ShouldMatchers {
       val json = parseJson("{}")
 
       json.successful should be(true)
-      println(json.get.toString)
-      json.get should be (Map())
+      json.get should be (List())
     }
-    
+
+    /*
+List(JsonElement("name",null))
+List(JsonElement("cool",true))
+List(JsonElement("cool",false))
+     */
     it("parses a numeric value") {
       val json = parseJson("""{"zip" : 48092}""")
 
       json.successful should be(true)
       println(json.get.toString) 
+      json.get should be (List(JsonElement("\"zip\"","48092")))  // TODO: treat as number
     }
 
     it("parses a string value") {
@@ -26,6 +31,7 @@ class JsonParserResultTest extends FunSpec with ShouldMatchers {
 
       json.successful should be(true)
       println(json.get.toString)
+      json.get should be (List(JsonElement("\"name\"","\"todd\"")))  // TODO: strip quotes
     }
 
     it("parses a null value") {
@@ -33,6 +39,7 @@ class JsonParserResultTest extends FunSpec with ShouldMatchers {
 
       json.successful should be(true)
       println(json.get.toString)
+//      json.get should be (List())
     }
 
     it("parses a boolean true value") {
@@ -40,6 +47,7 @@ class JsonParserResultTest extends FunSpec with ShouldMatchers {
 
       json.successful should be(true)
       println(json.get.toString)
+//      json.get should be (List())
     }
 
     it("parses a boolean false value") {
@@ -47,6 +55,7 @@ class JsonParserResultTest extends FunSpec with ShouldMatchers {
 
       json.successful should be(true)
       println(json.get.toString)
+//      json.get should be (List())
     }
   }
   
@@ -64,6 +73,7 @@ class JsonParserResultTest extends FunSpec with ShouldMatchers {
     	
     	println(json)
     	json.successful should be(true)
+//      json.get should be (List())
     }
     
     it("parses an array") {
@@ -77,6 +87,7 @@ class JsonParserResultTest extends FunSpec with ShouldMatchers {
     	
     	println(json)
     	json.successful should be(true)
+//      json.get should be (List())
     }
     
   }
@@ -97,6 +108,7 @@ class JsonParserResultTest extends FunSpec with ShouldMatchers {
            """)
     	println(json)
     	json.successful should be(true)
+//      json.get should be (List())
      }
   }  
 }
