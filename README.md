@@ -1,6 +1,11 @@
 Scala Json Dsl 
 ==============
 
+final
+-----
+
+This is a spike after I gave up on step 8
+
 step8
 -----
 
@@ -8,7 +13,7 @@ Done -- Cheat to fix broken test
 
 Goal -- Spike final parser result
         
-Todo -- Break out into step-by-step test driving
+Todo -- Start over and do step 8 right
 
 
 step7
