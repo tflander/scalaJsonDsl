@@ -22,12 +22,11 @@ values ::= value {"," value}.
 class JsonThing()
 
 case class JsonValue(huh: Any) extends JsonThing
-case class JsonObject(huh: Any) extends JsonThing
 case class JsonMember(name: String, value: Any) extends JsonThing
 
 class JsonParser extends JavaTokenParsers {
   def value: Parser[Any] = obj | arr | floatingPointNumber | stringLiteral | "null" | "true" | "false" ^^ (JsonValue(_))
-  def obj: Parser[JsonObject] = "{" ~> members <~ "}"  ^^ (JsonObject(_))
+  def obj: Parser[List[JsonMember]] = "{" ~> members <~ "}"  
   def arr: Parser[List[Any]] = "[" ~> values <~ "]" 
   def member: Parser[JsonMember] = stringLiteral ~ ":" ~ value ^^ { case name ~ ":" ~ value => JsonMember(name, value) }
   def values: Parser[List[Any]] = repsep(value, ",")
