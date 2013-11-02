@@ -20,8 +20,6 @@ class JsonParserTest extends FunSpec with ShouldMatchers {
       println(json.get.toString) // prints "(({~List((("zip"~:)~48092)))~})", but for now we are not going to worry about output
     }
 
-    // TODO:  get the rest of the tests to pass per the JSON grammer for value.
-
     it("parses a string value") {
       val json = parseJson("""{"name" : "todd"}""")
 

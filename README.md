@@ -1,6 +1,16 @@
 Scala Json Dsl 
 ==============
 
+step8
+-----
+
+Done -- Cheat to fix broken test
+
+Goal -- Spike final parser result
+        
+Todo -- Break out into step-by-step test driving
+
+
 step7
 -----
 Done -- refactored to move the parser from the test code to production source dir
