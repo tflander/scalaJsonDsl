@@ -18,6 +18,9 @@ values ::= value {"," value}.
 
    */
 
+abstract class JsonElement
+case class JsonString(name: String, value: String) extends JsonElement
+
 class Json extends JavaTokenParsers {
   def value: Parser[Any] = obj | arr | floatingPointNumber ^^ (_.toLong) | stringLiteral ^^ (x => stripQuotes(x)) | "null" ^^ (x => null) | "true" ^^ (x => true) | "false" ^^ (x => false)
   def obj: Parser[Any] = "{" ~ members ~ "}"
