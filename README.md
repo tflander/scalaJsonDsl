@@ -1,6 +1,15 @@
 Scala Json Dsl 
 ==============
 
+step8
+-----
+
+Done -- fixed tests for resolving simple values
+
+Goal -- TBD
+
+Todo -- TBD
+
 step7
 -----
 Done -- refactored to move the parser from the test code to production source dir

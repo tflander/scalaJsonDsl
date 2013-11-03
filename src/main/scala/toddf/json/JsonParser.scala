@@ -19,12 +19,17 @@ values ::= value {"," value}.
    */
 
 class Json extends JavaTokenParsers {
-  def value: Parser[Any] = obj | arr | floatingPointNumber | stringLiteral | "null" | "true" | "false"
+  def value: Parser[Any] = obj | arr | floatingPointNumber ^^ (_.toLong) | stringLiteral ^^ (x => stripQuotes(x)) | "null" ^^ (x => null) | "true" ^^ (x => true) | "false" ^^ (x => false)
   def obj: Parser[Any] = "{" ~ members ~ "}"
   def arr: Parser[Any] = "[" ~ values ~ "]"
   def member: Parser[Any] = stringLiteral ~ ":" ~ value
   def values: Parser[Any] = repsep(value, ",")
   def members: Parser[Any] = repsep(member, ",")
+  
+  def stripQuotes(s: String): String = {
+    require(s.startsWith("\"") && s.startsWith("\""))
+    return s.substring(1, s.length - 1)
+  }
 }
 
 object ParseJson extends Json {
