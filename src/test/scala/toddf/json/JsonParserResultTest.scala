@@ -60,7 +60,7 @@ class JsonParserResultTest extends FunSpec with ShouldMatchers {
 
     import NameValueParser._
 
-    it("") {
+    it("parses") {
       val nameValue = parseNameValue(""" "name": "value" """)
       println(nameValue)
       nameValue.successful should be(true)
