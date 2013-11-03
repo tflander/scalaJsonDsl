@@ -10,35 +10,30 @@ class JsonParserResultTest extends FunSpec with ShouldMatchers {
 
     it("should resolve numbers") {
       val value = resolveValue("123")
-      println(value)
       value.successful should be(true)
       value.get should be(123)
     }
 
     it("should resolve boolean true") {
       val value = resolveValue("true")
-      println(value)
       value.successful should be(true)
       value.get.asInstanceOf[Boolean] should be(true)
     }
 
     it("should resolve boolean false") {
       val value = resolveValue("false")
-      println(value)
       value.successful should be(true)
       value.get.asInstanceOf[Boolean] should be(false)
     }
 
     it("should resolve null") {
       val value = resolveValue("null")
-      println(value)
       value.successful should be(true)
       value.get == null should be(true)
     }
 
     it("strips nulls from strings") {
       val value = resolveValue("\"hello\"")
-      println(value)
       value.successful should be(true)
       value.get should be("hello")
     }
@@ -60,11 +55,38 @@ class JsonParserResultTest extends FunSpec with ShouldMatchers {
 
     import NameValueParser._
 
-    it("parses") {
+    it("parses to a JsonString") {
       val nameValue = parseNameValue(""" "name": "value" """)
+      nameValue.successful should be(true)
+      nameValue.get should be(JsonString("name", "value"))
+    }
+
+    it("parses to a JsonLong") {
+      val nameValue = parseNameValue(""" "name": 123 """)
       println(nameValue)
       nameValue.successful should be(true)
-      nameValue.get should be (JsonString("name", "value"))
+      nameValue.get should be(JsonLong("name", 123))
+    }
+
+    it("parses to a JsonNull") {
+      val nameValue = parseNameValue(""" "name": null """)
+      println(nameValue)
+      nameValue.successful should be(true)
+      nameValue.get should be(JsonNull("name"))
+    }
+
+    it("parses to a true JsonBoolean") {
+      val nameValue = parseNameValue(""" "name": true """)
+      println(nameValue)
+      nameValue.successful should be(true)
+      nameValue.get should be(JsonBoolean("name", true))
+    }
+    
+    it("parses to a false JsonBoolean") {
+      val nameValue = parseNameValue(""" "name": false """)
+      println(nameValue)
+      nameValue.successful should be(true)
+      nameValue.get should be(JsonBoolean("name", false))
     }
   }
 }
