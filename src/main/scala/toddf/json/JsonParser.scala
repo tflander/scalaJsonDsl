@@ -25,13 +25,19 @@ class Json extends JavaTokenParsers {
   def value: Parser[Any] = obj | arr | floatingPointNumber ^^ (_.toLong) | stringLiteral ^^ (x => stripQuotes(x)) | "null" ^^ (x => null) | "true" ^^ (x => true) | "false" ^^ (x => false)
   def obj: Parser[Any] = "{" ~ members ~ "}"
   def arr: Parser[Any] = "[" ~ values ~ "]"
-  def member: Parser[Any] = stringLiteral ~ ":" ~ value
+  def member: Parser[JsonElement] = stringLiteral ~ ":" ~ value ^^ {case name~":"~value => buildElement(name, value)}
   def values: Parser[Any] = repsep(value, ",")
   def members: Parser[Any] = repsep(member, ",")
   
   def stripQuotes(s: String): String = {
     require(s.startsWith("\"") && s.startsWith("\""))
     return s.substring(1, s.length - 1)
+  }
+  
+  def buildElement(name: String, value: Any): JsonElement = {
+    value match {
+      case s: String => return JsonString(stripQuotes(name), s)
+    }
   }
 }
 

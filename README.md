@@ -1,6 +1,14 @@
 Scala Json Dsl 
 ==============
 
+step9
+-----
+Done -- fixed test to create a JsonString
+
+Goal -- implement other flavors of JsonElement
+
+Todo -- fix broken tests in JsonParserResultTest
+
 step8
 -----
 
