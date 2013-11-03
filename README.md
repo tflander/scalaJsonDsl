@@ -6,9 +6,9 @@ step7
 Done -- refactored to move the parser from the test code to production source dir
         created new test for refining the parser output
         
-Goal -- Review refactoring and new test class JsonParserResultTest
+Goal -- resolve simple values to the correct types, rather than returning parsed out strings
 
-Todo -- Review JsonParserResultTest and fix broken test.
+Todo -- Review JsonParserResultTest and fix broken tests.
         
 step6
 -----
