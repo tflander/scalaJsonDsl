@@ -4,14 +4,49 @@ import ParseJson._
 
 class JsonParserResultTest extends FunSpec with ShouldMatchers {
 
-  describe("single element parsing") {
-
-    it("parses empty Json") {
-      val json = parseJson("{}")
-
-      json.successful should be(true)
-      println(json.get.toString) // prints "(({~List())~})", but for now we are not going to worry about output
-      json.get should be (Map())
+  describe("resolves parsed values") {
+    
+    def resolveValue = parseJson(_)
+    
+    it("should resolve numbers") {
+	  val value = resolveValue("123")
+	  println(value)
+      value.successful should be(true)
+	  value.get should be(123) 
+    }
+    
+    it("should resolve boolean true") {
+	  val value = resolveValue("true")
+	  println(value)
+      value.successful should be(true)
+	  value.get.asInstanceOf[Boolean] should be(true) 
+    }
+    
+    it("should resolve boolean false") {
+	  val value = resolveValue("false")
+	  println(value)
+      value.successful should be(true)
+	  value.get.asInstanceOf[Boolean] should be(false) 
+    }
+    
+    it("should resolve null") {
+	  val value = resolveValue("null")
+	  println(value)
+      value.successful should be(true)
+	  value.get == null should be(true) 
+    }
+    
+    it("strips nulls from strings") {
+	  val value = resolveValue("\"hello\"")
+	  println(value)
+      value.successful should be(true)
+	  value.get should be("hello")       
+    }
+    
+    it("fails non-Json Strings, where the string is not quoted") {
+      val value = resolveValue("hello")
+      value.successful should be(false)
     }
   }
+  
 }
