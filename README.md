@@ -6,9 +6,9 @@ step8
 
 Done -- fixed tests for resolving simple values
 
-Goal -- TBD
+Goal -- resolve member parsing of a name value pair of String to String
 
-Todo -- TBD
+Todo -- Fix broken test in JsonParserResultTest
 
 step7
 -----
