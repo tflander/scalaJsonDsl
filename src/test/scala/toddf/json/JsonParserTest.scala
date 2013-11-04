@@ -24,7 +24,7 @@ values ::= value {"," value}.
     def value: Parser[Any] = obj | floatingPointNumber
     def obj: Parser[Any] = "{" ~ (member | "") ~ "}"
     def arr: Parser[Any] = "TODO: create lexical expression for parsing"
-    def member: Parser[Any] = stringLiteral~":"~value
+    def member: Parser[Any] = stringLiteral ~ ":" ~ value
     def values: Parser[Any] = "TODO: create lexical expression for parsing"
     def members: Parser[Any] = "TODO: create lexical expression for parsing"
   }
@@ -39,47 +39,44 @@ values ::= value {"," value}.
   import ParseJson._
 
   describe("single element parsing") {
-    
+
     it("parses empty Json") {
       val json = parseJson("{}")
-
       json.successful should be(true)
-      println(json.get.toString) // prints "(({~List())~})", but for now we are not going to worry about output
     }
 
     it("parses a numeric value") {
       val json = parseJson("""{"zip" : 48092}""")
-      
       json.successful should be(true)
-      println(json.get.toString)  // prints "(({~List((("zip"~:)~48092)))~})", but for now we are not going to worry about output
+      println(json.get.toString) // prints "(({~List((("zip"~:)~48092)))~})", but for now we are not going to worry about output
     }
 
     // TODO:  get the rest of the tests to pass per the JSON grammer for value.
-    
+
     it("parses a string value") {
       val json = parseJson("""{"name" : "todd"}""")
-      
+      println(json)
       json.successful should be(true)
       println(json.get.toString)
     }
-    
+
     it("parses a null value") {
       val json = parseJson("""{"name" : null}""")
-      
+      println(json)
       json.successful should be(true)
       println(json.get.toString)
     }
-    
+
     it("parses a boolean true value") {
       val json = parseJson("""{"cool" : true}""")
-      
+      println(json)
       json.successful should be(true)
       println(json.get.toString)
     }
-    
+
     it("parses a boolean false value") {
       val json = parseJson("""{"cool" : false}""")
-      
+      println(json)
       json.successful should be(true)
       println(json.get.toString)
     }
