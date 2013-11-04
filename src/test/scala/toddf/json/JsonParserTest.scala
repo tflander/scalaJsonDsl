@@ -93,7 +93,8 @@ values ::= value {"," value}.
     					  "city"   : "Springfield",
     					  "state"  : "California",
     					  "zip"    : "90210" 
-    					} 
+    					}
+    		}
     	""")
     	println(json)
     	json.successful should be(true)
