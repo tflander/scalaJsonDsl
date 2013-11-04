@@ -91,9 +91,9 @@ class JsonParserResultTest extends FunSpec with ShouldMatchers {
   }
   
   describe("get arrays working") {
-      val nameValue = parseJson(""" [false, true, null, "string", 123] """)
-      println(nameValue)
-      nameValue.successful should be(true)
-      nameValue.get should be(List(false, true, null, "string", 123))
+      val jsonArray = parseJson(""" [false, true, null, "string", 123] """)
+      println(jsonArray)
+      jsonArray.successful should be(true)
+      jsonArray.get should be(List(false, true, null, "string", 123))
   }
 }
