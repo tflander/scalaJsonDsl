@@ -6,9 +6,9 @@ step8
 
 Done -- fixed tests for resolving simple values
 
-Goal -- TBD
+Goal -- Parse out a name / value pair to a new case class instance
 
-Todo -- TBD
+Todo -- Review JsonParserResultTest and fix broken test.
 
 step7
 -----
