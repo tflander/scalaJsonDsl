@@ -42,53 +42,38 @@ values ::= value {"," value}.
 
     it("parses empty Json") {
       val json = parseJson("{}")
-
       json.successful should be(true)
-      println(json.get.toString) // prints "(({~List())~})", but for now we are not going to worry about output
     }
 
     it("parses a numeric value") {
       val json = parseJson("""{"zip" : 48092}""")
-
       json.successful should be(true)
-      println(json.get.toString) // prints "(({~List((("zip"~:)~48092)))~})", but for now we are not going to worry about output
     }
-
-    // TODO:  get the rest of the tests to pass per the JSON grammer for value.
 
     it("parses a string value") {
       val json = parseJson("""{"name" : "todd"}""")
-
       json.successful should be(true)
-      println(json.get.toString)
     }
 
     it("parses a null value") {
       val json = parseJson("""{"name" : null}""")
-
       json.successful should be(true)
-      println(json.get.toString)
     }
 
     it("parses a boolean true value") {
       val json = parseJson("""{"cool" : true}""")
-
       json.successful should be(true)
-      println(json.get.toString)
     }
 
     it("parses a boolean false value") {
       val json = parseJson("""{"cool" : false}""")
-
       json.successful should be(true)
-      println(json.get.toString)
     }
   }
 
   describe("free whitespace tests") {
     it("doesn't require spaces around the colon") {
       val json = parseJson("""{"name":"todd"}""")
-
       json.successful should be(true)
     }
 
@@ -110,6 +95,7 @@ values ::= value {"," value}.
     					  "zip"    : "90210" 
     					} 
     	""")
+    	println(json)
     	json.successful should be(true)
     }
   }
