@@ -1,6 +1,14 @@
 Scala Json Dsl 
 ==============
 
+step10
+------
+Done -- finished implementing all types of JsonElement
+
+Goal -- get arrays working
+
+Todo -- fix broken test in JsonParserResultTest
+
 step9
 -----
 Done -- fixed test to create a JsonString

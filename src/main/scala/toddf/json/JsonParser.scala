@@ -38,8 +38,12 @@ class Json extends JavaTokenParsers {
   }
   
   def buildElement(name: String, value: Any): JsonElement = {
+    val realName = stripQuotes(name)
     value match {
-      case s: String => return JsonString(stripQuotes(name), s)
+      case s: String => return JsonString(realName, s)
+      case n: Long => return JsonLong(realName, n)
+      case b: Boolean => return JsonBoolean(realName, b)
+      case null => return JsonNull(realName)
     }
   }
 }
