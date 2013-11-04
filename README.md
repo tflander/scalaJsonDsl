@@ -5,9 +5,9 @@ step11
 ------
 Done -- implement arrays
 
-Goal -- TBD
+Goal -- implement objects
 
-Todo -- TBD
+Todo -- fix broken tests in JsonParserResultTest
 
 step10
 ------
