@@ -27,7 +27,7 @@ case class JsonBoolean(name: String, value: Boolean) extends JsonElement
 class Json extends JavaTokenParsers {
   def value: Parser[Any] = obj | arr | floatingPointNumber ^^ (_.toLong) | stringLiteral ^^ (x => stripQuotes(x)) | "null" ^^ (x => null) | "true" ^^ (x => true) | "false" ^^ (x => false)
   def obj: Parser[Any] = "{" ~ members ~ "}"
-  def arr: Parser[Any] = "[" ~ values ~ "]"
+  def arr: Parser[Any] = "[" ~> values <~ "]"
   def member: Parser[JsonElement] = stringLiteral ~ ":" ~ value ^^ {case name~":"~value => buildElement(name, value)}
   def values: Parser[Any] = repsep(value, ",")
   def members: Parser[Any] = repsep(member, ",")

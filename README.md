@@ -1,6 +1,14 @@
 Scala Json Dsl 
 ==============
 
+step11
+------
+Done -- implement arrays
+
+Goal -- TBD
+
+Todo -- TBD
+
 step10
 ------
 Done -- finished implementing all types of JsonElement
