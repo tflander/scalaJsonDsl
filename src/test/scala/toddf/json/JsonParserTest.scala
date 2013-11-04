@@ -41,10 +41,10 @@ values ::= value {"," value}.
   describe("JSON parsing tests") {
     it("parses empty Json") {
       val json = parseJson("{}")
+      println(json)
       
       // TODO:  Modify Json.value in the above class to make this test pass.
       json.successful should be(true)
-      println()
     }
 
   }
