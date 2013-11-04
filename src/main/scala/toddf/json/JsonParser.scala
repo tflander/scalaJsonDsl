@@ -23,6 +23,7 @@ case class JsonString(name: String, value: String) extends JsonElement
 case class JsonLong(name: String, value: Long) extends JsonElement
 case class JsonNull(name: String) extends JsonElement
 case class JsonBoolean(name: String, value: Boolean) extends JsonElement
+case class JsonList(name: String, value: List[Any]) extends JsonElement
 
 class Json extends JavaTokenParsers {
   def value: Parser[Any] = obj | arr | floatingPointNumber ^^ (_.toLong) | stringLiteral ^^ (x => stripQuotes(x)) | "null" ^^ (x => null) | "true" ^^ (x => true) | "false" ^^ (x => false)

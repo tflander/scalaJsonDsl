@@ -114,27 +114,27 @@ class JsonParserResultTest extends FunSpec with ShouldMatchers {
     }
     
     it("handles complex objects") {
-//      val json = parseJson("""
-//            {"address" : {"street" : "123 Main Street", 
-//                                              "city"   : "Springfield",
-//                                              "state"  : "California",
-//                                              "zip"    : "90210",
-//                                                 "phone numbers" : [
-//                                                                                        "555-1212",
-//                                                                                        "655-1268"
-//                                                                                         ]
-//                                            }
-//                    }
-//           """)
-//      println(json)
-//      json.successful should be(true)
-//      json.get should be(List(
-//        JsonList("address", List(
-//          JsonString("street", "123 Main Street"),
-//          JsonString("city", "Springfield"),
-//          JsonString("state", "California"),
-//          JsonString("zip", "90210"),
-//          JsonList("phone numbers", List("555-1212", "655-1268"))))))
+      val json = parseJson("""
+            {"address" : {"street" : "123 Main Street", 
+                                              "city"   : "Springfield",
+                                              "state"  : "California",
+                                              "zip"    : "90210",
+                                                 "phone numbers" : [
+                                                                                        "555-1212",
+                                                                                        "655-1268"
+                                                                                         ]
+                                            }
+                    }
+           """)
+      println(json)
+      json.successful should be(true)
+      json.get should be(List(
+        JsonList("address", List(
+          JsonString("street", "123 Main Street"),
+          JsonString("city", "Springfield"),
+          JsonString("state", "California"),
+          JsonString("zip", "90210"),
+          JsonList("phone numbers", List("555-1212", "655-1268"))))))
     }
   }
 }
