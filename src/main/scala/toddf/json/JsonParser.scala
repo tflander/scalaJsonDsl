@@ -27,7 +27,7 @@ case class JsonList(name: String, value: List[Any]) extends JsonElement
 
 class Json extends JavaTokenParsers {
   def value: Parser[Any] = obj | arr | floatingPointNumber ^^ (_.toLong) | stringLiteral ^^ (x => stripQuotes(x)) | "null" ^^ (x => null) | "true" ^^ (x => true) | "false" ^^ (x => false)
-  def obj: Parser[Any] = "{" ~ members ~ "}"
+  def obj: Parser[Any] = "{" ~> members <~ "}"
   def arr: Parser[Any] = "[" ~> values <~ "]"
   def member: Parser[JsonElement] = stringLiteral ~ ":" ~ value ^^ {case name~":"~value => buildElement(name, value)}
   def values: Parser[Any] = repsep(value, ",")
@@ -45,6 +45,7 @@ class Json extends JavaTokenParsers {
       case n: Long => return JsonLong(realName, n)
       case b: Boolean => return JsonBoolean(realName, b)
       case null => return JsonNull(realName)
+      case l: List[Any] => return JsonList(realName, l)
     }
   }
 }

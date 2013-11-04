@@ -1,6 +1,12 @@
 Scala Json Dsl 
 ==============
 
+Step12
+------
+Done -- Json objects now implemented
+
+Todo -- build a parser to rule the world
+
 step11
 ------
 Done -- implement arrays
