@@ -11,7 +11,7 @@ published by Artima
 
 Here is the grammer for expressing JSON:
 
-value ::= obj | arr | stringLiteral | FloatingPointNumber | "null" | "true" | "false".
+value ::= obj | arr | stringLiteral | floatingPointNumber | "null" | "true" | "false".
 member ::= stringLiteral ":" value.
 arr ::= "[" [values] "]".
 obj ::= "{" [members] "}".
@@ -41,6 +41,7 @@ values ::= value {"," value}.
   describe("JSON parsing tests") {
     it("parses empty Json") {
       val json = parseJson("{}")
+      println(json) // prints "{}", but for now we are not going to worry about output
 
       json.successful should be(true)
     }
