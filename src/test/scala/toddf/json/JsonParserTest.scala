@@ -11,7 +11,7 @@ published by Artima
 
 Here is the grammer for expressing JSON:
 
-value ::= obj | arr | stringLiteral | ßoatingPointNumber | "null" | "true" | "false".
+value ::= obj | arr | stringLiteral | FloatingPointNumber | "null" | "true" | "false".
 member ::= stringLiteral ":" value.
 arr ::= "[" [values] "]".
 obj ::= "{" [members] "}".
@@ -43,15 +43,14 @@ values ::= value {"," value}.
       val json = parseJson("{}")
 
       json.successful should be(true)
-      println(json.get.toString) // prints "{}", but for now we are not going to worry about output
     }
 
     it("parses a single element") {
       val json = parseJson("""{"zip" : 48092}""")
-      
+      println(json)
+
       // TODO:  now that we cheated for the first test, let's do some real parsing
       json.successful should be(true)
-      println(json.get.toString)
     }
 
   }
