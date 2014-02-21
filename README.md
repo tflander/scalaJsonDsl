@@ -36,8 +36,11 @@ care about the name/number pair as an object, and the floatingPointNumber for th
 - Update the "value" parser to look for a floatingPointNumber or something that the obj parser can consume.
 
 Hint: floatingPointNumber is defined by our base class JavaTokenParsers
+
 Hint: use the normal "or" operator | to specify alternative values
+
 Hint: obj | floatingPointNumber
+
 Hint: look at the solution in the step2 branch
 
 - Now that we've referenced the "obj" parser in our "obj" parser, we need to define it. We will need to replace the TODO, but 
