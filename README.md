@@ -44,6 +44,10 @@ values ::= value {"," value}.
   
 - Fix the failing test.  The parser consumes "{}" and tries to match it against "TODO: create lexical expression for parsing".
   This is a mis-match.  What is the simplest expression that matches "{}"?  Replace the TODO with that expression.
+  
+- Run the test and verify that it is green.
+
+- Continue by checking out step1 (git checkout -f step1)
       
 Notes
 ------
