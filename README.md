@@ -21,6 +21,15 @@ Our cheap parse expression "{}" does not match a JSON name/number pair.
 
 This is the single most difficult step of this kata.  Let's review our grammer rules to see how to parse a name/number pair.
 
+```
+value ::= obj | arr | stringLiteral | FloatingPointNumber | "null" | "true" | "false".
+member ::= stringLiteral ":" value.
+arr ::= "[" [values] "]".
+obj ::= "{" [members] "}".
+members ::= member {"," member}.
+values ::= value {"," value}.
+```
+
 The element "value" can be an object, array, stringLiteral, floatingPointNumber, "null", "true", or "false".  For now we only
 care about the name/number pair as an object, and the floatingPointNumber for the zip code.
 
