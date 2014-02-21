@@ -1,59 +1,28 @@
 Scala Json Dsl 
 ==============
 
+We are getting close to fully supporting the JSON spec.  We need to support JSON arrays.  Lets do it.
+
 step5
 -----
-Done -- implemented parsing for objects
 
-Goal -- parse arrays
+- Run JsonParserTest and verify the following error:
 
-Todo -- Review JsonParserTest and fix broken test.
+```
+[2.29] failure: `false' expected but `[' found
 
-step4
------
-Done -- added free tests
+    	    {"phone numbers" : [ 
 
-Goal -- implement objects
+    	                       ^
+```
 
-Todo -- Review JsonParserTest and fix broken test.
+- Review the rules needed to implement JSON arrays:
+ 
+```
+arr ::= "[" [values] "]".
+values ::= value {"," value}.
+```
 
-step3
------
-Done -- finished parsing value
+- No new concepts are needed to implement these parsers.  Go to it!
 
-Goal -- understand whitespace is handled for you
-
-Todo -- Review new tests that ran green with no code modifications
-
-step2
------
-Done -- did some real parsing
-
-Goal -- complete the parsing rules for value according to the JSON grammer
-
-Todo -- Fix broken tests in JsonParserTest.
-
-step 1
-------
-Done -- Cheated to get the test to pass
-
-Goal -- do some real parsing
-
-Todo -- Review JsonParserTest and fix broken test.
-
-
-step 0
-------
-Done -- Created new scala project, configured the sbt-eclipse plug-in and updated scalatest version.
-
-Goal -- become familiar with the problem we are trying to solve
-
-Todo -- Review JsonParserTest and fix broken test.
-
-Notes
-------
-This project has branches step0 through stepN.  These branches form a step-by-step kata for test driving a scala-json parser.
-
-adopted from "Programming in Scala: A comprehensive step-by-step guide", 2nd edition 
-Martin Odersky, Lex Spoon, Bill Venners.
-published by Artima
+- Re-run JsonParserTest and verify that it runs green.
