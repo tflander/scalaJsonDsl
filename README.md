@@ -1,67 +1,21 @@
 Scala Json Dsl 
 ==============
 
+Congratulations!  You've done it!  You've built a JSON parser.
+
+Just for fun, there is a new test added to verify the parser works for complex JSON.
+
+We still have a couple of problems.  The biggest problem is that this parser does not produce any useful output.  We would like
+to parse out the JSON into some useful object graph.  The second problem is that we've spiked out all of our parsing code in our
+test class.  Our parser is not avallable for use for production code.
+
+Since this is not a refactoring kata, we will perform the refactoring by checking out step7.  This will allow us to test drive
+our parse results using a brand new test suite.  I would not normally separate my parsing and result processing in real life.  
+I did so for this kata in order to get through the parsing without having to introduce too many concepts all at once.
+ 
 step6
 -----
-Done -- implemented parsing for arrays & put it all together with a bigger example
 
-Goal -- Refactor for next step
+- Review the test and verify that it runs green.
 
-Todo -- check out step7 (the refactored code base)
-
-step5
------
-Done -- implemented parsing for objects
-
-Goal -- parse arrays
-
-Todo -- Review JsonParserTest and fix broken test.
-
-step4
------
-Done -- added free tests
-
-Goal -- implement objects
-
-Todo -- Review JsonParserTest and fix broken test.
-
-step3
------
-Done -- finished parsing value
-
-Goal -- understand whitespace is handled for you
-
-Todo -- Review new tests that ran green with no code modifications
-
-step2
------
-Done -- did some real parsing
-
-Goal -- complete the parsing rules for value according to the JSON grammer
-
-Todo -- Fix broken tests in JsonParserTest.
-
-step 1
-------
-Done -- Cheated to get the test to pass
-
-Goal -- do some real parsing
-
-Todo -- Review JsonParserTest and fix broken test.
-
-
-step 0
-------
-Done -- Created new scala project, configured the sbt-eclipse plug-in and updated scalatest version.
-
-Goal -- become familiar with the problem we are trying to solve
-
-Todo -- Review JsonParserTest and fix broken test.
-
-Notes
-------
-This project has branches step0 through stepN.  These branches form a step-by-step kata for test driving a scala-json parser.
-
-adopted from "Programming in Scala: A comprehensive step-by-step guide", 2nd edition 
-Martin Odersky, Lex Spoon, Bill Venners.
-published by Artima
+- Check out step7 to perform the refactoring.
