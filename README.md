@@ -1,93 +1,35 @@
 Scala Json Dsl 
 ==============
 
+In the last step we implemented one type of JsonElement to represent string values.  Let's implement the other types of 
+JsonElement.
+
 step9
 -----
-Done -- fixed test to create a JsonString
 
-Goal -- implement other flavors of JsonElement
+- Review changes to JsonParser.  Note we have some new case classes to represent all of the types of JsonElement.
 
-Todo -- fix broken tests in JsonParserResultTest
+```
+abstract class JsonElement
+case class JsonString(name: String, value: String) extends JsonElement
+case class JsonLong(name: String, value: Long) extends JsonElement
+case class JsonNull(name: String) extends JsonElement
+case class JsonBoolean(name: String, value: Boolean) extends JsonElement
+```
 
-step8
------
+- Note the code that implements JsonString:
 
-Done -- fixed tests for resolving simple values
+```
+  def buildElement(name: String, value: Any): JsonElement = {
+    value match {
+      case s: String => return JsonString(stripQuotes(name), s)
+    }
+  }
+```
 
-Goal -- resolve member parsing of a name value pair of String to String
+We have a matcher to handle the case where the value is a string, but we don't match the other cases yet.
 
-Todo -- Fix broken test in JsonParserResultTest
+- Run JsonParserResultTest and verify the MatchError for the cases where we don't handle the value type.
 
-step7
------
-Done -- refactored to move the parser from the test code to production source dir
-        created new test for refining the parser output
-        
-Goal -- resolve simple values to the correct types, rather than returning parsed out strings
+- Implement the missing value types and verify the tests now run green.
 
-Todo -- Review JsonParserResultTest and fix broken tests.
-        
-step6
------
-Done -- implemented parsing for arrays & put it all together with a bigger example
-
-Goal -- Refactor for next step
-
-Todo -- check out step7 (the refactored code base)
-
-step5
------
-Done -- implemented parsing for objects
-
-Goal -- parse arrays
-
-Todo -- Review JsonParserTest and fix broken test.
-
-step4
------
-Done -- added free tests
-
-Goal -- implement objects
-
-Todo -- Review JsonParserTest and fix broken test.
-
-step3
------
-Done -- finished parsing value
-
-Goal -- understand whitespace is handled for you
-
-Todo -- Review new tests that ran green with no code modifications
-
-step2
------
-Done -- did some real parsing
-
-Goal -- complete the parsing rules for value according to the JSON grammer
-
-Todo -- Fix broken tests in JsonParserTest.
-
-step 1
-------
-Done -- Cheated to get the test to pass
-
-Goal -- do some real parsing
-
-Todo -- Review JsonParserTest and fix broken test.
-
-
-step 0
-------
-Done -- Created new scala project, configured the sbt-eclipse plug-in and updated scalatest version.
-
-Goal -- become familiar with the problem we are trying to solve
-
-Todo -- Review JsonParserTest and fix broken test.
-
-Notes
-------
-This project has branches step0 through stepN.  These branches form a step-by-step kata for test driving a scala-json parser.
-
-adopted from "Programming in Scala: A comprehensive step-by-step guide", 2nd edition 
-Martin Odersky, Lex Spoon, Bill Venners.
-published by Artima
