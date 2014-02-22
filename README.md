@@ -1,85 +1,46 @@
 Scala Json Dsl 
 ==============
 
+We are going to work on the result of parsing a member.  A member is essentially a JSON name/value pair.
+
 step8
 -----
 
-Done -- fixed tests for resolving simple values
+- Review the new section at the bottom of JsonParserResultTest.  Note the nested Scala singleton NameValueParser.
 
-Goal -- resolve member parsing of a name value pair of String to String
-
-Todo -- Fix broken test in JsonParserResultTest
-
-step7
------
-Done -- refactored to move the parser from the test code to production source dir
-        created new test for refining the parser output
-        
-Goal -- resolve simple values to the correct types, rather than returning parsed out strings
-
-Todo -- Review JsonParserResultTest and fix broken tests.
-        
-step6
------
-Done -- implemented parsing for arrays & put it all together with a bigger example
-
-Goal -- Refactor for next step
-
-Todo -- check out step7 (the refactored code base)
-
-step5
------
-Done -- implemented parsing for objects
-
-Goal -- parse arrays
-
-Todo -- Review JsonParserTest and fix broken test.
-
-step4
------
-Done -- added free tests
-
-Goal -- implement objects
-
-Todo -- Review JsonParserTest and fix broken test.
-
-step3
------
-Done -- finished parsing value
-
-Goal -- understand whitespace is handled for you
-
-Todo -- Review new tests that ran green with no code modifications
-
-step2
------
-Done -- did some real parsing
-
-Goal -- complete the parsing rules for value according to the JSON grammer
-
-Todo -- Fix broken tests in JsonParserTest.
-
-step 1
-------
-Done -- Cheated to get the test to pass
-
-Goal -- do some real parsing
-
-Todo -- Review JsonParserTest and fix broken test.
+Normally I would take this approach when creating a DSL from scratch.  It makes sense to design a DSL from the top down,
+then build it from the bottom up.  You may not know your domain when you start designing.  That's OK.  Start with what you
+know.  Keep in mind that, like an API, a DSL may become difficult to change once people start using it -- but don't let
+that stop you from starting.
 
 
-step 0
-------
-Done -- Created new scala project, configured the sbt-eclipse plug-in and updated scalatest version.
+- Review the member parser in JsonPaser:
 
-Goal -- become familiar with the problem we are trying to solve
+```
+  def member: Parser[Any] = stringLiteral ~ ":" ~ value
+``
 
-Todo -- Review JsonParserTest and fix broken test.
+We currently define the member parser to return a parser of type Any.  Basically, we are saying that we don't care what the 
+parser returns.  Let's change that.
 
-Notes
-------
-This project has branches step0 through stepN.  These branches form a step-by-step kata for test driving a scala-json parser.
+- Review new code in JsonParser.scala
 
-adopted from "Programming in Scala: A comprehensive step-by-step guide", 2nd edition 
-Martin Odersky, Lex Spoon, Bill Venners.
-published by Artima
+```
+abstract class JsonElement
+case class JsonString(name: String, value: String) extends JsonElement
+```
+
+We would like our member parser to return an object of type JsonElement.  If the value in the name/value pair is of type
+String, we want to return a object of the specific type JsonString.
+
+- Run JsonParserResultTest and note the following error:
+```
+  (("name"~:)~value) was not equal to JsonString(name,value)
+```
+
+The default parse result is not only difficult for humans to read.  It's also difficult for systems to utilize.
+
+- Add the eyebrows operator to the member parser to return the object we want.
+
+- Verify that test runs green.
+
