@@ -1,101 +1,39 @@
 Scala Json Dsl 
 ==============
 
+Now is the time to get arrays working.
+
+This step introduces two variants to the tilde composition operator (~).
+
+The normal composition operator includes both the left and right hand expression in both the parsing and the result.
+The ~> and <~ operators are used to throw away part of the parsed expression when forming the parse result
+
+```
+P ~ Q  :==> composition operator to include both P and Q in the parse results
+P ~> Q :==> composition operator to parse P and Q, then throw away P for the parse results
+P <~ Q :==> composition operator to parse P and Q, then throw away Q for the parse results
+```
+
 step10
 ------
-Done -- finished implementing all types of JsonElement
 
-Goal -- get arrays working
+- Run JsonParserResultTest and verify the following error:
 
-Todo -- fix broken test in JsonParserResultTest
+```
+An exception or error caused a run to abort: (([~List(false, true, null, string, 123))~]) was not equal to List(false, true, null, string, 123) (JsonParserResultTest.scala:97)
+```
 
-step9
------
-Done -- fixed test to create a JsonString
+We are really close to having the correct parse result.  The only problem is that our parse results include square brackets.  We
+only need a list of JSON values.
 
-Goal -- implement other flavors of JsonElement
+- Note the defintion of the array parser and the use of the composition operator to include square brackets in the parsing 
+of an array:
 
-Todo -- fix broken tests in JsonParserResultTest
+```
+def arr: Parser[Any] = "[" ~ values ~ "]"
+```
 
-step8
------
+We don't need our parse results to include the square brackets. Replace the current composition operator with the appropriate 
+composition operator to throw away the square brackets for the parse result.
 
-Done -- fixed tests for resolving simple values
-
-Goal -- resolve member parsing of a name value pair of String to String
-
-Todo -- Fix broken test in JsonParserResultTest
-
-step7
------
-Done -- refactored to move the parser from the test code to production source dir
-        created new test for refining the parser output
-        
-Goal -- resolve simple values to the correct types, rather than returning parsed out strings
-
-Todo -- Review JsonParserResultTest and fix broken tests.
-        
-step6
------
-Done -- implemented parsing for arrays & put it all together with a bigger example
-
-Goal -- Refactor for next step
-
-Todo -- check out step7 (the refactored code base)
-
-step5
------
-Done -- implemented parsing for objects
-
-Goal -- parse arrays
-
-Todo -- Review JsonParserTest and fix broken test.
-
-step4
------
-Done -- added free tests
-
-Goal -- implement objects
-
-Todo -- Review JsonParserTest and fix broken test.
-
-step3
------
-Done -- finished parsing value
-
-Goal -- understand whitespace is handled for you
-
-Todo -- Review new tests that ran green with no code modifications
-
-step2
------
-Done -- did some real parsing
-
-Goal -- complete the parsing rules for value according to the JSON grammer
-
-Todo -- Fix broken tests in JsonParserTest.
-
-step 1
-------
-Done -- Cheated to get the test to pass
-
-Goal -- do some real parsing
-
-Todo -- Review JsonParserTest and fix broken test.
-
-
-step 0
-------
-Done -- Created new scala project, configured the sbt-eclipse plug-in and updated scalatest version.
-
-Goal -- become familiar with the problem we are trying to solve
-
-Todo -- Review JsonParserTest and fix broken test.
-
-Notes
-------
-This project has branches step0 through stepN.  These branches form a step-by-step kata for test driving a scala-json parser.
-
-adopted from "Programming in Scala: A comprehensive step-by-step guide", 2nd edition 
-Martin Odersky, Lex Spoon, Bill Venners.
-published by Artima
+- Re-run the test and verify that it is now green.
