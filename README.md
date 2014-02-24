@@ -17,10 +17,12 @@ name "resolveValue" rather than "parseJson".
 Scala parsers perform result conversion by using the eyebrows operator (^^).  You supply a function to the right-hand side of 
 this operator.  The function takes the parsed out string and returns the thing you want.
 
+```
 Examples:
   floatingPointNumber ^^ (_.toLong) 
   "false" ^^ (x => false)
   stringLiteral ^^ (x => foo(x) )
+```
 
 The first example passes the String.toLong() method to perform the parse result.  The underscore is a placeholder for the string
 returned by the parser.
