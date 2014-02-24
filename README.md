@@ -1,109 +1,39 @@
 Scala Json Dsl 
 ==============
 
+Now that we are getting appropriate parse results for JSON arrays, we need to do the same for JSON objects.
+
+This is the last step.  Step 12 is provided only if you need to refer to it for the solution.
+
 step11
 ------
-Done -- implement arrays
+- Run JsonParserResultTest and verify three errors.
 
-Goal -- implement objects
+```
+- handles a single element *** FAILED ***
+  (({~List(JsonString(name,value)))~}) was not equal to List(JsonString(name,value)) (JsonParserResultTest.scala:101)
+- handles multiple elements *** FAILED ***
+  (({~List(JsonString(name,value), JsonString(name1,value1)))~}) was not equal to List(JsonString(name,value), JsonString(name1,value1)) (JsonParserResultTest.scala:113)
+- handles complex objects *** FAILED ***
+  scala.MatchError: List(555-1212, 655-1268) 
+```
 
-Todo -- fix broken tests in JsonParserResultTest
+The first two errors are because the braces are being included in the parse results.  Let's fix these first.
 
-step10
-------
-Done -- finished implementing all types of JsonElement
+- Modify the obj parser to throw away the braces in the parse results.
 
-Goal -- get arrays working
+- Re-run JsonParserResultTest to verify that we fixed two of three errors.  Verify one remaining error:
 
-Todo -- fix broken test in JsonParserResultTest
+- handles complex objects *** FAILED ***
+```
+  scala.MatchError: List(555-1212, 655-1268) (of class scala.collection.immutable.$colon$colon)
+  at toddf.json.Json.buildElement(JsonParser.scala:43)
+  ```
+  
+  Our matcher does not handle the case where we get a list of values for a JSON array.
+  
+- Add a matcher to convert a list of type Any to a JsonList 
 
-step9
------
-Done -- fixed test to create a JsonString
+- Verify all the tests run green.  
 
-Goal -- implement other flavors of JsonElement
-
-Todo -- fix broken tests in JsonParserResultTest
-
-step8
------
-
-Done -- fixed tests for resolving simple values
-
-Goal -- resolve member parsing of a name value pair of String to String
-
-Todo -- Fix broken test in JsonParserResultTest
-
-step7
------
-Done -- refactored to move the parser from the test code to production source dir
-        created new test for refining the parser output
-        
-Goal -- resolve simple values to the correct types, rather than returning parsed out strings
-
-Todo -- Review JsonParserResultTest and fix broken tests.
-        
-step6
------
-Done -- implemented parsing for arrays & put it all together with a bigger example
-
-Goal -- Refactor for next step
-
-Todo -- check out step7 (the refactored code base)
-
-step5
------
-Done -- implemented parsing for objects
-
-Goal -- parse arrays
-
-Todo -- Review JsonParserTest and fix broken test.
-
-step4
------
-Done -- added free tests
-
-Goal -- implement objects
-
-Todo -- Review JsonParserTest and fix broken test.
-
-step3
------
-Done -- finished parsing value
-
-Goal -- understand whitespace is handled for you
-
-Todo -- Review new tests that ran green with no code modifications
-
-step2
------
-Done -- did some real parsing
-
-Goal -- complete the parsing rules for value according to the JSON grammer
-
-Todo -- Fix broken tests in JsonParserTest.
-
-step 1
-------
-Done -- Cheated to get the test to pass
-
-Goal -- do some real parsing
-
-Todo -- Review JsonParserTest and fix broken test.
-
-
-step 0
-------
-Done -- Created new scala project, configured the sbt-eclipse plug-in and updated scalatest version.
-
-Goal -- become familiar with the problem we are trying to solve
-
-Todo -- Review JsonParserTest and fix broken test.
-
-Notes
-------
-This project has branches step0 through stepN.  These branches form a step-by-step kata for test driving a scala-json parser.
-
-adopted from "Programming in Scala: A comprehensive step-by-step guide", 2nd edition 
-Martin Odersky, Lex Spoon, Bill Venners.
-published by Artima
+- You are done!  Congratulations!!!
