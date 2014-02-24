@@ -68,7 +68,9 @@ Hint:
     }
   }
   
-Hint: Take a look at the method stripQuotes(...), since I'm mean and did not give you code in the previous hint that would turn the test green.
+Hint: I'm mean and did not give you code in the previous hint that would turn the test green.
+
+Hint: Take a look at the method stripQuotes(...)
 ```
 
 - Verify that test runs green.
