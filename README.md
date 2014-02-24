@@ -18,7 +18,7 @@ that stop you from starting.
 
 ```
   def member: Parser[Any] = stringLiteral ~ ":" ~ value
-``
+```
 
 We currently define the member parser to return a parser of type Any.  Basically, we are saying that we don't care what the 
 parser returns.  Let's change that.
