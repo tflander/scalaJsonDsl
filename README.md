@@ -20,7 +20,9 @@ step10
 - Run JsonParserResultTest and verify the following error:
 
 ```
-An exception or error caused a run to abort: (([~List(false, true, null, string, 123))~]) was not equal to List(false, true, null, string, 123) (JsonParserResultTest.scala:97)
+An exception or error caused a run to abort: 
+  (([~List(false, true, null, string, 123))~]) was not equal to List(false, true, null, string, 123) 
+  (JsonParserResultTest.scala:97)
 ```
 
 We are really close to having the correct parse result.  The only problem is that our parse results include square brackets.  We
