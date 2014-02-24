@@ -25,4 +25,6 @@ values ::= value {"," value}.
 
 - No new concepts are needed to implement these parsers.  Go to it!
 
+Hint:  Don't forget to add the "arr" parser to the value parser. 
+
 - Re-run JsonParserTest and verify that it runs green.
