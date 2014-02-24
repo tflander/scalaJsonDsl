@@ -40,7 +40,36 @@ String, we want to return a object of the specific type JsonString.
 
 The default parse result is not only difficult for humans to read.  It's also difficult for systems to utilize.
 
-- Add the eyebrows operator to the member parser to return the object we want.
+We have a bit of learning to do before we can implement a complex parse result.  For the previous parse results, we were parsing a string to represent a value
+of some type.  Now we are parsing a more complex expression using multiple composition operators:
+
+```
+  def member: Parser[Any] = stringLiteral ~ ":" ~ value
+``` 
+
+We need to use a bit of Scala weirdness to pass our data to a method that will create our parse result:
+
+```
+def member: Parser[JsonElement] = stringLiteral ~ ":" ~ value ^^ {case name~":"~value => buildElement(name, value)}
+```
+Basically, we are defining an expression that says "If the parse result is a name/value pair separated by a colon, then call the method buildElement".  We 
+could have different cases for a String value, a Long value, and other types of values, but I prefer to delegate this complexity to a separate method.
+
+- Add the eyebrows operator to the member parser to call a method called buildElement, passing the name and value.
+
+- Define the method buildElement to return a JsonString for the case where the value is of type String.
+
+```
+Hint:
+
+  def buildElement(name: String, value: Any): JsonElement = {
+    value match {
+      case s: String => return JsonString(name, s)
+    }
+  }
+  
+Hint: Take a look at the method stripQuotes(...), since I'm mean and did not give you code in the previous hint that would turn the test green.
+```
 
 - Verify that test runs green.
 
