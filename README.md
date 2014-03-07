@@ -43,7 +43,7 @@ Hint: obj | floatingPointNumber
 
 Hint: look at the solution in the step2 branch
 
-- Now that we've referenced the "obj" parser in our "obj" parser, we need to define it. We will need to replace the TODO, but 
+- Now that we've referenced the "obj" parser in our "value" parser, we need to define it. We will need to replace the TODO, but 
   for now let's just note that a JSON object is a list of members inside of braces.  We will come back to obj shortly.
   
 - Let's look ahead to the grammer rule for "member".  A member is a stringLiteral and value pair separated by a colon.  In our
